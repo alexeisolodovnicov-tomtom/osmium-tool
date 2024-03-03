@@ -138,19 +138,19 @@ jobs:
   #     - uses: ./.github/actions/build
   #     - uses: ./.github/actions/ctest
 
-  ubuntu-latest:
-    runs-on: ubuntu-22.04
+  ubuntu-20_04:
+    runs-on: ubuntu-20.04
     env:
-      CC: clang-15
-      CXX: clang++-15
+      CC: clang-10
+      CXX: clang++-10
       BUILD_TYPE: Release
     steps:
       - name: Install new clang
         run: |
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/llvm-snapshot.asc
-          sudo add-apt-repository 'deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main'
+          sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-10 main"
           sudo apt-get update -qq
-          sudo apt-get install -yq clang-15
+          sudo apt-get install -yq clang-10
         shell: bash
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-ubuntu
@@ -162,6 +162,32 @@ jobs:
         with:
           name: build
           path: build/
+
+
+  # ubuntu-latest:
+  #   runs-on: ubuntu-22.04
+  #   env:
+  #     CC: clang-15
+  #     CXX: clang++-15
+  #     BUILD_TYPE: Release
+  #   steps:
+  #     - name: Install new clang
+  #       run: |
+  #         wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/llvm-snapshot.asc
+  #         sudo add-apt-repository 'deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main'
+  #         sudo apt-get update -qq
+  #         sudo apt-get install -yq clang-15
+  #       shell: bash
+  #     - uses: actions/checkout@v4
+  #     - uses: ./.github/actions/install-ubuntu
+  #     - uses: ./.github/actions/install-from-git
+  #     - uses: ./.github/actions/cmake
+  #     - uses: ./.github/actions/build
+  #     - uses: ./.github/actions/ctest
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: build
+  #         path: build/
 
   # macos:
   #   timeout-minutes: 30
