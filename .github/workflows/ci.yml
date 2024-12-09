@@ -189,30 +189,30 @@ jobs:
   #         name: build
   #         path: build/
 
-  # macos:
-  #   timeout-minutes: 30
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os:
-  #         - "macos-12"
-  #         - "macos-13"
-  #       build_type: [Dev]
-  #       include:
-  #         - os: "macos-12"
-  #           build_type: Release
-  #   runs-on: ${{ matrix.os }}
-  #   env:
-  #     CC: clang
-  #     CXX: clang++
-  #     BUILD_TYPE: ${{ matrix.build_type }}
-  #   steps:
-  #     - run: brew install boost
-  #     - uses: actions/checkout@v4
-  #     - uses: ./.github/actions/install-from-git
-  #     - uses: ./.github/actions/cmake
-  #     - uses: ./.github/actions/build
-  #     - uses: ./.github/actions/ctest
+  macos:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "macos-12"
+          - "macos-13"
+        build_type: [Dev]
+        include:
+          - os: "macos-12"
+            build_type: Release
+    runs-on: ${{ matrix.os }}
+    env:
+      CC: clang
+      CXX: clang++
+      BUILD_TYPE: ${{ matrix.build_type }}
+    steps:
+      - run: brew install boost
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-from-git
+      - uses: ./.github/actions/cmake
+      - uses: ./.github/actions/build
+      - uses: ./.github/actions/ctest
 
   # windows:
   #   timeout-minutes: 30
