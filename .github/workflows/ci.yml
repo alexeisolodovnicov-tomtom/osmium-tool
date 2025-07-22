@@ -159,7 +159,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: osmium
-          path: cmake-build/src/osmium
+          path: build/src/osmium
 
   # macos:
   #   runs-on: ${{ matrix.os }}
